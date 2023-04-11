@@ -1,0 +1,81 @@
+<%- include('header'); -%>
+
+
+    <div class="box" id="heading">
+        <form class="item" id="form" action="/" method="post" style="justify-content: space-between;">
+            <label>
+                <h1>
+                    <%= kindOfDay %>
+                </h1>
+            </label>
+            <button type="button" onclick="open_pup()">
+                <span class="span-mother">
+                    <span><i class="fa-solid fa-plus"></i></span>
+                </span>
+                <span class="span-mother2">
+                    <span><i class="fa-solid fa-plus"></i></span>
+                </span>
+            </button>
+        </form>
+
+    </div>
+
+
+
+
+    <div class="box" id="tasks">
+
+        <% newListItems.forEach(function(item){ %>
+            <form action="/delete" method="post">
+                <div class="item">
+                    <input type="checkbox" name="checkbox" value="<%= item._id %>" onchange="this.form.submit()">
+                    <p>
+                        <%= item.task %>
+                    </p>
+                </div>
+                <input type="hidden" name="newItemBtn" value="<%= kindOfDay %>">
+            </form>
+            <%})%>
+                <form class="item" action="/" method="post">
+                    <input type="text" name="newItem" placeholder="New Task" autocomplete="off">
+                    <!-- <button type="submit" name="newItemBtn" value="<%= kindOfDay %>"><i class="fa-solid fa-plus"></i></button> -->
+                    <button type="submit" name="newItemBtn" value="<%= kindOfDay %>" style="background-color: white;color: #A683E3;">
+                        <span class="span-mother" >
+                            <span><i class="fa-solid fa-plus"></i></span>
+                        </span>
+                        <span class="span-mother2" >
+                            <span><i class="fa-solid fa-plus"></i></span>
+                        </span>
+                    </button>
+                </form>
+    </div>
+
+    <!-- Modal -->
+
+    <div class="login-box" id="pup">
+        <form action="/addList" method="post">
+            <center>
+                <h1>Add New List</h1>
+            </center>
+            <div class="user-box">
+                <input type="text" name="newList">
+            </div>
+            <center>
+                <a  onclick="hide_pup()">Close<span></span></a>
+            </center>
+        </form>
+    </div>
+
+    <script>
+        function open_pup() {
+            document.getElementById('pup').classList.add('open');
+            document.getElementById('heading').classList.add('open');
+            document.getElementById('tasks').classList.add('open');
+        }
+        function hide_pup() {
+            document.getElementById('pup').classList.remove('open');
+            document.getElementById('heading').classList.remove('open');
+            document.getElementById('tasks').classList.remove('open');
+        }
+    </script>
+    <%- include('footer'); -%>
